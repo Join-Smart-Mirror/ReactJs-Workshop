@@ -20,21 +20,20 @@ const Login = () =>{
     const [errors,setErrors] = useState([]);
     const submitHandler = () => {
         setErrors([]);
+        const errorsTemp = [];
         if(!validator.isLength(username,{min:3,max:25}))
         {
-            setErrors(prev=>{
-                return [...prev,'Invalid username']
-            })
+            errorsTemp.push('Invalid username')
         }
         if(!validator.isLength(password,{min:3,max:25}))
         {
-            setErrors(prev=>{
-                return [...prev,'Invalid password']
-            })
+            errorsTemp.push('Invalid password')
         }
         console.log('before returning if errors')
-        if(errors.length > 0)
+        if(errorsTemp.length > 0){
+            setErrors(errorsTemp)
             return;
+        }
         console.log('dispatch');
         dispatch(loginFunction(username,password));
     }

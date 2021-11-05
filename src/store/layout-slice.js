@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { history } from '../App';
 
 const initialLayoutSate = {
     authorizationStatus : localStorage.getItem('token') ? true : false,
