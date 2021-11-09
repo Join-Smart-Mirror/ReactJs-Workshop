@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { layoutActions } from "../../store/layout-slice";
 import { loginFunction } from "../../store/auth-slice";
+import { authActions } from "../../store/auth-slice";
 import { useSelector } from "react-redux";
 const Login = () =>{
     const dispatch = useDispatch();
@@ -19,7 +20,6 @@ const Login = () =>{
     const [password,setPassword] = useState('');
     const [errors,setErrors] = useState([]);
     const submitHandler = () => {
-        setErrors([]);
         const errorsTemp = [];
         if(!validator.isLength(username,{min:3,max:25}))
         {
@@ -34,6 +34,8 @@ const Login = () =>{
             setErrors(errorsTemp)
             return;
         }
+        setErrors([]);
+        dispatch(authActions.setOperations({function:'login',status:''}))
         console.log('dispatch');
         dispatch(loginFunction(username,password));
     }

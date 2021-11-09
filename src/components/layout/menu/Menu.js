@@ -16,11 +16,24 @@ import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
 import { history } from '../../../App';
 import { useSelector } from 'react-redux';
-
+import { useDispatch } from 'react-redux';
+import { layoutActions } from '../../../store/layout-slice';
 const Menu = () => {
+    const dispatch = useDispatch();
     const [showMenu,setShowMenu] = useState(false);
     const breadcrumbs = useSelector(state=>state.layout.breadcrumbs)
     const authStatus = useSelector(state=>state.layout.authorizationStatus)
+
+    const logHandler = () =>{
+      if(authStatus){
+        localStorage.removeItem('token');
+        dispatch(layoutActions.setAuthorizationStatus(false))
+        history.push('/login')
+        return;
+      }
+      history.push('/login')
+    }
+
     const toggleDrawer = (open) => (event) => {
         if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
           return;
@@ -77,7 +90,7 @@ const Menu = () => {
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {breadcrumbs}
               </Typography>
-              <Button color="inherit">{authStatus ? 'Log out': 'Log in' }</Button>
+              <Button color="inherit" onClick={logHandler}>{authStatus ? 'Log out': 'Log in' }</Button>
             </Toolbar>
           </AppBar>
 
