@@ -14,6 +14,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import LoginIcon from '@mui/icons-material/Login';
+import SettingsIcon from '@mui/icons-material/SettingsSuggest';
 import { history } from '../../../App';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
@@ -67,6 +68,16 @@ const Menu = () => {
                 <LoginIcon />
               </ListItemIcon>
               <ListItemText primary="Log In" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={()=>{
+                history.push('/settings')
+            }}>
+              <ListItemIcon>
+                <SettingsIcon />
+              </ListItemIcon>
+              <ListItemText primary="Settings/Options" />
             </ListItemButton>
           </ListItem>
         </List>

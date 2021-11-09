@@ -8,6 +8,20 @@ body{
 #root{
     height:100%;
 }
+
+#SettingsList,li {
+    font-weight: bold;
+    font-size: 22px;
+    background: linear-gradient(to right, yellow , orange 15%, red);
+    padding: 5px;
+    color: dimgray;
+    text-shadow: 1px 1px dodgerblue;
+}
+
+#SettingsTitle {
+    text-shadow: 1px 1px dodgerblue;
+}
+
 .grid{
     display: grid;
     grid-template-columns: 100%;
