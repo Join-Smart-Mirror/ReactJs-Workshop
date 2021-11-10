@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background-color: bisque;
     color:white;
     padding:0px;
     margin:0px;
@@ -9,14 +9,6 @@ body{
     height:100%;
 }
 
-#SettingsList,li {
-    font-weight: bold;
-    font-size: 22px;
-    background: linear-gradient(to right, yellow , orange 15%, red);
-    padding: 5px;
-    color: dimgray;
-    text-shadow: 1px 1px dodgerblue;
-}
 
 #SettingsTitle {
     text-shadow: 1px 1px dodgerblue;
@@ -27,4 +19,8 @@ body{
     grid-template-columns: 100%;
     grid-template-rows: auto 1fr;
     min-height: 100%;
+}
+
+.MuiTextField-root {
+    color: burlywood;
 }

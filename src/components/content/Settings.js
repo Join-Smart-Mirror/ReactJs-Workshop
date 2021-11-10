@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
+import RssComponent from "../RssComponent";
 import { layoutActions } from "../../store/layout-slice";
 import Grid from '@mui/material/Grid';
 
@@ -17,11 +18,9 @@ const Settings = () => {
             justifyContent="center"
             alignItems="center"
             >
-            <span>
-                <h1 id="SettingsTitle">
-                    Settings
-                </h1>
-            </span>
+                
+            <RssComponent/>
+
             <Grid
                 container
                 direction="row"
