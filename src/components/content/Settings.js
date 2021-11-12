@@ -20,9 +20,10 @@ const Settings = () => {
             alignItems="center"
             >
                 
-            <RssComponent/>
-            <RealRssComponent/>
-
+            <RssComponent />
+            <div style={{ height: "800px", width: "400px", overflow: "hidden" }}>
+                <RealRssComponent/>
+                </div>
             <Grid
                 container
                 direction="row"
