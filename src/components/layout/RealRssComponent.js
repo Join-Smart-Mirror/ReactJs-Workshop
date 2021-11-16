@@ -10,14 +10,26 @@ import { useCallback } from 'react';
 var divHeight
 const RealRssComponent = () => {
     const [feedRss, setfeedRss] = useState([]);
+    const [divScrollHeight,setDivScrollHeight] = useState(0);
     useEffect(() => { showRss() }, []);
     const [i,SetI] = useState(0);
-    useEffect(() => {
-        //timer to run and interval 
-        if (feedRss.length === 0) {
-            return;
+    
+
+    const scrollingHeight = useCallback(node => {
+        if (node !== null) {
+            setDivScrollHeight(node.getBoundingClientRect().height);
+            
+            console.log(divHeight);
         }
-        const interval = setInterval(() => {
+    }, []);
+
+
+    
+    if (feedRss.length === 0)
+        return <div> Loading...</div>
+    const childCount = feedRss.length
+    const RssData = feedRss.map((item, index) => {
+        return <div className="foofoo" onAnimationEnd={(event) => {
             SetI((prevstate) => {
                 if (prevstate === feedRss.length - 1) {
                     return 0;
@@ -26,22 +38,8 @@ const RealRssComponent = () => {
                     return prevstate + 1
                 }
             })
-        }, 5000)
-        return () => {
-            clearInterval(interval);
-        }
-    }, [feedRss])
-
-    const scrollingHeight = useCallback(node => {
-        if (node !== null) {
-            divHeight = node.getBoundingClientRect().height
-        }
-    }, []);
-    
-    if (feedRss.length === 0)
-        return <div> Loading...</div>
-    const childCount = feedRss.length
-    const RssData = feedRss.map((item) => { return <div>{ReactHtmlParser(item.content)}</div>; })
+        }} style={{ animation: `scrollBox ${divScrollHeight / 20}s linear 2s 1 normal forwards` }} ref={scrollingHeight} key={index}>{ReactHtmlParser(item.content)}</div>;
+    })
 
     return (
         <Grid
@@ -50,7 +48,7 @@ const RealRssComponent = () => {
             justifyContent="center"
             alignItems="center"
             className="RealRssComps">
-            <div ref={scrollingHeight} style={{ transform: "translateY()"}}>
+            <div style={{ transform: "translateY()"}}>
                 {RssData[i]}
             </div>
         </Grid>

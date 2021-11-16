@@ -24,3 +24,12 @@ body{
 .MuiTextField-root {
     color: burlywood;
 }
+
+@keyframes scrollBox{
+    0% {transform: translateY(0);}
+    100% {transform: translateY(-100%);}
+}
+
+.foofoo:hover{
+    animation-play-state: paused!important;
+}
