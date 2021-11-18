@@ -2,7 +2,6 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialLayoutSate = {
     authorizationStatus : localStorage.getItem('token') ? true : false,
-    breadcrumbs: '',
     operations: {
         login : {
             status : '',
@@ -18,9 +17,6 @@ const layoutSlice = createSlice({
         setAuthorizationStatus(state,action){
             state.authorizationStatus = action.payload;
         },
-        setBreadcrumbs(state,action){
-            state.breadcrumbs = action.payload;
-        }
     }
 })
 export const layoutActions =  layoutSlice.actions;

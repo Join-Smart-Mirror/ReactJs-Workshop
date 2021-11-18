@@ -5,17 +5,13 @@ import { Button } from "@mui/material";
 import {useState} from 'react';
 import validator from 'validator';
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { layoutActions } from "../../store/layout-slice";
 import { loginFunction } from "../../store/auth-slice";
 import { authActions } from "../../store/auth-slice";
 import { useSelector } from "react-redux";
 const Login = () =>{
     const dispatch = useDispatch();
     const loginOperation = useSelector(state=>state.auth.operations.login)
-    useEffect(()=>{
-        dispatch(layoutActions.setBreadcrumbs('Login'));
-    },[dispatch])
+
     const [username,setUsername] = useState('');
     const [password,setPassword] = useState('');
     const [errors,setErrors] = useState([]);

@@ -19,10 +19,13 @@ import { history } from '../../../App';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { layoutActions } from '../../../store/layout-slice';
+import React from 'react';
+import routes from '../../content/Routes/routes'
+import {v4 as uuid} from 'uuid'
 const Menu = () => {
     const dispatch = useDispatch();
     const [showMenu,setShowMenu] = useState(false);
-    const breadcrumbs = useSelector(state=>state.layout.breadcrumbs)
+    const breadcrumbs = '404'
     const authStatus = useSelector(state=>state.layout.authorizationStatus)
 
     const logHandler = () =>{
@@ -42,48 +45,66 @@ const Menu = () => {
         setShowMenu(open);
     };
     
-    const list = (anchor) => (
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-          onClick={toggleDrawer(false)}
-          onKeyDown={toggleDrawer(false)}
-        >
-          <List>
-          <ListItem disablePadding>
-            <ListItemButton onClick={()=>{
-                history.push('/')
-            }}>
-              <ListItemIcon>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary="HOME" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={()=>{
-                history.push('/login')
-            }}>
-              <ListItemIcon>
-                <LoginIcon />
-              </ListItemIcon>
-              <ListItemText primary="Log In" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={()=>{
-                history.push('/settings')
-            }}>
-              <ListItemIcon>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText primary="Settings/Options" />
-            </ListItemButton>
-          </ListItem>
-        </List>
-        </Box>
-      );
+    // const list = (anchor) => (
+    //     <Box
+    //       sx={{ width: 250 }}
+    //       role="presentation"
+    //       onClick={toggleDrawer(false)}
+    //       onKeyDown={toggleDrawer(false)}
+    //     >
+    //       <List>
+    //       <ListItem disablePadding>
+    //         <ListItemButton onClick={()=>{
+    //             history.push('/')
+    //         }}>
+    //           <ListItemIcon>
+    //             <HomeIcon />
+    //           </ListItemIcon>
+    //           <ListItemText primary="HOME" />
+    //         </ListItemButton>
+    //       </ListItem>
+    //       <ListItem disablePadding>
+    //         <ListItemButton onClick={()=>{
+    //             history.push('/login')
+    //         }}>
+    //           <ListItemIcon>
+    //             <LoginIcon />
+    //           </ListItemIcon>
+    //           <ListItemText primary="Log In" />
+    //         </ListItemButton>
+    //       </ListItem>
+    //       <ListItem disablePadding>
+    //         <ListItemButton onClick={()=>{
+    //             history.push('/settings')
+    //         }}>
+    //           <ListItemIcon>
+    //             <SettingsIcon />
+    //           </ListItemIcon>
+    //           <ListItemText primary="Settings/Options" />
+    //         </ListItemButton>
+    //       </ListItem>
+    //     </List>
+    //     </Box>
+    //   );
     
+    const list = (anchor) => {
+      const finalMenuList = [];
+      routes.forEach(route=>{
+        if(route.authorization === authStatus){
+          finalMenuList.push(<ListItem key={uuid()} disablePadding>
+                 <ListItemButton onClick={()=>{
+                        history.push(route.path)
+                     }}>
+                       <ListItemIcon>
+                        {React.createElement(route.icon)}
+                      </ListItemIcon>
+                       <ListItemText primary={route.title} />
+                    </ListItemButton>
+                  </ListItem>)
+        }
+      })
+      return finalMenuList;
+    }
     return (
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
@@ -110,7 +131,16 @@ const Menu = () => {
             open={showMenu}
             onClose={toggleDrawer(false)}
           >
+            <Box
+              sx={{ width: 250 }}
+              role="presentation"
+              onClick={toggleDrawer(false)}
+              onKeyDown={toggleDrawer(false)}
+            >
+              <List>
             {list()}
+            </List>
+            </Box>
           </Drawer>
         </Box>
       );
